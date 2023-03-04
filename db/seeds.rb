@@ -2,10 +2,13 @@ puts "STARTED SEEDING "
 puts "Deleting old data..."
 
 # Randomize Users
-20.times do |n|
+0.times do |n|
     User.create!(
-      full_name: Faker::Name.first_name,
+      first_name: Faker::Name.first_name,
+      middle_name: Faker::Name.middle_name,
+      last_name: Faker::Name.last_name,
       email: Faker::Internet.email,
+      age: rand(18..60),
       password: Faker::Internet.password(min_length: 8)
     )
 end
