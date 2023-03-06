@@ -17,7 +17,7 @@ class UserController < Sinatra::Base
     
       # Create a new user object
       user = User.new(
-        full_name: data['first_name'],
+        full_name: data['full_name'],
         email: data['email'],
         password: data['password']
       )
@@ -46,7 +46,7 @@ class UserController < Sinatra::Base
       if user && user.authenticate(data['password'])
         # Return success message with user details
         # session[:user_id] = user.id
-        halt 200, { user_id: user.id, username: user.first_name }.to_json
+        halt 200, { user_id: user.id, username: user.full_name }.to_json
 
       else
         # Return error message

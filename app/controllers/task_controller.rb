@@ -18,6 +18,7 @@ class TaskController < Sinatra::Base
           title: data['title'],
           description: data['description'],
           due_date: data['due_date'],
+          user_id: data['user_id']
         )
       
         if task.save
@@ -40,6 +41,7 @@ class TaskController < Sinatra::Base
         end
       end
 
+
     # Filter through tasks using the date the task was created
     get '/tasks/filter' do
         if params[:created_at].present?
@@ -50,4 +52,28 @@ class TaskController < Sinatra::Base
           tasks.to_json
         end
     end
+
+   put '/tasks/update/:user_id' do
+    tasks = Task.find(data[:user_id])
+    if task.update(completed: params[:completed])
+       json task
+    else
+      status 400
+      json task.errors
+    end
   end
+
+  get '/tasks/:user_id' do
+    task = Task.where(user_id: params[user_id])
+    if task
+      task.to_json
+    else
+      status
+    end
+  end
+
+ 
+
+  end
+
+
